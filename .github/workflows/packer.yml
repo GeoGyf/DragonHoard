@@ -31,12 +31,12 @@ jobs:
 
       # New step to print variables
       - name: Print Packer Variables
-  run: |
-    echo "IAM Instance Profile: ${PACKER_IAM_INSTANCE_PROFILE}"
-    echo "S3 Bucket: ${PACKER_BUCKET}"
-  env:
-    PACKER_IAM_INSTANCE_PROFILE: ${{ vars.INSTANCE_PROFILE_ID || 'dragon-hoard_profile' }}
-    PACKER_BUCKET: ${{ vars.BUCKET || 'dragon-hoard-treasures' }}
+        run: |
+          echo "IAM Instance Profile: ${PACKER_IAM_INSTANCE_PROFILE}"
+          echo "S3 Bucket: ${PACKER_BUCKET}"
+        env:
+          PACKER_IAM_INSTANCE_PROFILE: ${{ vars.INSTANCE_PROFILE_ID || 'dragon-hoard_profile' }}
+          PACKER_BUCKET: ${{ vars.BUCKET || 'dragon-hoard-treasures' }}
 
       - name: Run `packer validate`
         id: validate
