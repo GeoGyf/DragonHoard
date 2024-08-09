@@ -22,13 +22,18 @@ jobs:
       - name: Run `packer init`
         id: init
         run: "packer init ./aws-ubuntu.pkr.hcl"
-        
+
+      # Explicitly define the variables in the workflow if needed
+      - name: Set Variables
+        run: |
+          echo "INSTANCE_PROFILE_ID=YourInstanceProfileID" >> $GITHUB_ENV
+          echo "BUCKET=YourBucketName" >> $GITHUB_ENV
 
       # New step to print variables
       - name: Print Variables
         run: |
-          echo "IAM Instance Profile: ${{ vars.INSTANCE_PROFILE_ID }}"
-          echo "S3 Bucket: ${{ vars.BUCKET }}"
+          echo "IAM Instance Profile: $INSTANCE_PROFILE_ID"
+          echo "S3 Bucket: $BUCKET"
           echo "AWS Access Key: ${{ secrets.AWS_ACCESS_KEY_ID }}"
           echo "Branch: ${{ github.ref_name }}"
 
@@ -41,4 +46,6 @@ jobs:
         env:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        run: "packer build -var 'iam_instance_profile=${{ vars.INSTANCE_PROFILE_ID }}' -var 'bucket=${{ vars.BUCKET }}' ./aws-ubuntu.pkr.hcl"
+          INSTANCE_PROFILE_ID: $INSTANCE_PROFILE_ID
+          BUCKET: $BUCKET
+        run: "packer build -var 'iam_instance_profile=$INSTANCE_PROFILE_ID' -var 'bucket=$BUCKET' ./aws-ubuntu.pkr.hcl"
