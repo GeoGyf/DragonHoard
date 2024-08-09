@@ -23,6 +23,14 @@ jobs:
         id: init
         run: "packer init ./aws-ubuntu.pkr.hcl"
 
+      # New step to print variables
+      - name: Print Variables
+        run: |
+          echo "IAM Instance Profile: ${{ vars.INSTANCE_PROFILE_ID }}"
+          echo "S3 Bucket: ${{ vars.BUCKET }}"
+          echo "AWS Access Key: ${{ secrets.AWS_ACCESS_KEY_ID }}"
+          echo "Branch: ${{ github.ref_name }}"
+
       - name: Run `packer validate`
         id: validate
         run: "packer validate ./aws-ubuntu.pkr.hcl"
@@ -32,4 +40,4 @@ jobs:
         env:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        run: "packer build  -var 'iam_instance_profile=${{ vars.INSTANCE_PROFILE_ID }}' -var 'bucket=${{vars.BUCKET}}' ./aws-ubuntu.pkr.hcl"
+        run: "packer build -var 'iam_instance_profile=${{ vars.INSTANCE_PROFILE_ID }}' -var 'bucket=${{ vars.BUCKET }}' ./aws-ubuntu.pkr.hcl"
