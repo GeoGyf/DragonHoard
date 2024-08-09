@@ -41,18 +41,21 @@ build {
     "source.amazon-ebs.ubuntu"
   ]
   provisioner "shell" {
-    environment_vars = [
-      "DEBIAN_FRONTEND=noninteractive",
-    ]
-    inline = [
-      "sudo apt update -y",
-      "sudo apt install -y unzip",
-      "curl \"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip\" -o \"awscliv2.zip\"",
-      "unzip awscliv2.zip",
-      "sudo ./aws/install",
-      "sudo mkdir /opt/dragon-hoard",
-      "sudo chown -R ubuntu:ubuntu /opt/dragon-hoard",
-      "aws s3 cp s3://${var.bucket}/treasures/ /opt/dragon-hoard --recursive"
-    ]
-  }
+  environment_vars = [
+    "DEBIAN_FRONTEND=noninteractive",
+  ]
+  inline = [
+    "echo IAM Instance Profile: ${var.iam_instance_profile}",
+    "echo S3 Bucket: ${var.bucket}",
+    "sudo apt update -y",
+    "sudo apt install -y unzip",
+    "curl \"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip\" -o \"awscliv2.zip\"",
+    "unzip awscliv2.zip",
+    "sudo ./aws/install",
+    "sudo mkdir /opt/dragon-hoard",
+    "sudo chown -R ubuntu:ubuntu /opt/dragon-hoard",
+    "aws s3 cp s3://${var.bucket}/treasures/ /opt/dragon-hoard --recursive"
+  ]
+}
+
 }
