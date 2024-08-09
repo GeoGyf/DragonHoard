@@ -30,12 +30,13 @@ jobs:
           echo "BUCKET=dragon-hoard-treasures" >> $GITHUB_ENV
 
       # New step to print variables
-      - name: Print Variables
-        run: |
-          echo "IAM Instance Profile: $INSTANCE_PROFILE_ID"
-          echo "S3 Bucket: $BUCKET"
-          echo "AWS Access Key: ${{ secrets.AWS_ACCESS_KEY_ID }}"
-          echo "Branch: ${{ github.ref_name }}"
+      - name: Print Packer Variables
+  run: |
+    echo "IAM Instance Profile: ${PACKER_IAM_INSTANCE_PROFILE}"
+    echo "S3 Bucket: ${PACKER_BUCKET}"
+  env:
+    PACKER_IAM_INSTANCE_PROFILE: ${{ vars.INSTANCE_PROFILE_ID || 'dragon-hoard_profile' }}
+    PACKER_BUCKET: ${{ vars.BUCKET || 'dragon-hoard-treasures' }}
 
       - name: Run `packer validate`
         id: validate
