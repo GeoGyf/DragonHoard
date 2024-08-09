@@ -22,6 +22,7 @@ jobs:
       - name: Run `packer init`
         id: init
         run: "packer init ./aws-ubuntu.pkr.hcl"
+        
 
       # New step to print variables
       - name: Print Variables
