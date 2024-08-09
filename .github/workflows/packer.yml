@@ -26,8 +26,8 @@ jobs:
       # Explicitly define the variables in the workflow if needed
       - name: Set Variables
         run: |
-          echo "INSTANCE_PROFILE_ID=YourInstanceProfileID" >> $GITHUB_ENV
-          echo "BUCKET=YourBucketName" >> $GITHUB_ENV
+          echo "INSTANCE_PROFILE_ID=dragon-hoard_profile" >> $GITHUB_ENV
+          echo "BUCKET=dragon-hoard-treasures" >> $GITHUB_ENV
 
       # New step to print variables
       - name: Print Variables
