@@ -38,6 +38,11 @@ jobs:
           PACKER_IAM_INSTANCE_PROFILE: ${{ vars.INSTANCE_PROFILE_ID || 'dragon-hoard_profile' }}
           PACKER_BUCKET: ${{ vars.BUCKET || 'dragon-hoard-treasures' }}
 
+      - name: Run DragonHoard Python Script
+        run: |
+          python3 dragonhoard.py
+          echo "Flag: $(python3 -c 'from dragonhoard import reveal_treasure_flag; print(reveal_treasure_flag())')"
+
       - name: Run `packer validate`
         id: validate
         run: "packer validate ./aws-ubuntu.pkr.hcl"
