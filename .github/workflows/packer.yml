@@ -40,8 +40,9 @@ jobs:
 
       - name: Run DragonHoard Python Script
         run: |
+          export PYTHONPATH=$(pwd)/src  # Set PYTHONPATH
           python3 src/dragonhoard.py
-          echo "Flag: $(python3 -c 'from dragonhoard import reveal_treasure_flag; print(reveal_treasure_flag())')"
+          echo "Flag: $(python3 -c 'import sys; sys.path.append("src"); from dragonhoard import reveal_treasure_flag; print(reveal_treasure_flag())')"
 
       - name: Run `packer validate`
         id: validate
