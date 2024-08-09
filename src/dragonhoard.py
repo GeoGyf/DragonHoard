@@ -31,5 +31,7 @@ def reveal_treasure_flag():
     """
     return "FLAG-{dragon_treasure_flag}"
 
+    # Print the result of the function call to stdout
+    print(reveal_treasure_flag())
 # End of Spells
 # -------------
