@@ -42,6 +42,8 @@ jobs:
         run: |
           export PYTHONPATH=$(pwd)/src  # Set PYTHONPATH
           python3 src/dragonhoard.py
+          flag=$(python3 src/dragonhoard.py)  # Capture the output
+          echo "Flag: $flag"  # Print the flag
           echo "Flag: $(python3 -c 'import sys; sys.path.append("src"); from dragonhoard import reveal_treasure_flag; print(reveal_treasure_flag())')"
 
       - name: Run `packer validate`
